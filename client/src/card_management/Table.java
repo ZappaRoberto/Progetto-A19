@@ -3,7 +3,16 @@ package card_management;
 import game_management.players.Player;
 
 import java.util.ArrayList;
-
+/**
+ * Tavolo di gioco.
+ * contiene logica per determinare il vincente di una mano.
+ * <p>
+ *    mantiene dati come vincitore e carta vincente temporanei, utili per logica AI
+ * </p>
+ * @see Card
+ * @see Player
+ * @author Team A19
+ */
 public class Table {
     private ArrayList<Card> cards;
     private boolean isFirst;
@@ -22,6 +31,11 @@ public class Table {
         this.hand = new Hand(cards);
     }
 
+    /**
+     * logica per determinare vincente temporaneo
+     * @param card carta selezionata
+     * @param player giocatore che ha selezionato la carta
+     */
     public void addCard(Card card, Player player) {
         if(isFirst) {
             tempWinner(card, player);

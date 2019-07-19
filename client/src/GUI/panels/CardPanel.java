@@ -9,7 +9,11 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-
+/**
+ * Pannello con cardLayout, contiene due buttonCardImage(fronte,retro) che scorrono con il metodo turn()
+ * @see ButtonCardImage
+ * @author Team A19
+ */
 public class CardPanel extends JPanel {
 
     private CardLayout cardLayout;

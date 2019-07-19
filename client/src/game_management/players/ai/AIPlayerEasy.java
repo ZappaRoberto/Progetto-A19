@@ -5,17 +5,22 @@ import game_management.players.PlayerRole;
 
 import java.util.Collections;
 import java.util.Random;
-
+/**
+ * Genera giocatori livello facile
+ * @author Team A19
+ */
 public class AIPlayerEasy extends AIPlayer {
 
     public AIPlayerEasy(int order) {
         super(order);
     }
 
+    /**
+     * sceglie scommessa
+     * @return scommessa scelta
+     */
     @Override
     public int chooseBet() {
-        Random random = new Random();
-        int min = 61; // numero minimo
         int max;
        if(Collections.max(cardsBySuit.values()) == 4) {
            max = 81;
@@ -35,21 +40,35 @@ public class AIPlayerEasy extends AIPlayer {
         if(max==0) {
             return max;
         }else {
-            int c = ((max-min) + 1);
-            int d;
-            if(max<=81) {
-                while (((d = (random.nextInt(c) + min)) % 2 == 0)) {
-                    c = ((max - min) + 1);
-                }
-            }else {
-                d = (random.nextInt(c) + min);
-            }
+            int d = randomMinMax(max);
             return d;
         }
     }
 
+    /**
+     *
+     * @param max massima scommessa prestabilita
+     * @return valore casuale tra min e max scommessa
+     */
+    private int randomMinMax(int max) {
+        Random random = new Random();
+        int min = 61;
+        int c = ((max-min) + 1);
+        int d;
+        if(max<=81) {
+            while (((d = (random.nextInt(c) + min)) % 2 == 0)) {
+                c = ((max - min) + 1);
+            }
+        }else {
+            d = (random.nextInt(c) + min);
+        }
+        return d;
+    }
 
-
+    /**
+     * lancia la carta
+     * @return carta scelta in base a logica AI
+     */
     @Override
     public Card throwCard() {
         if(!role.equals(PlayerRole.FELLOW)) {
@@ -70,6 +89,10 @@ public class AIPlayerEasy extends AIPlayer {
         }
     }
 
+    /**
+     *
+     * @return true se il compagno sta vincendo la mano
+     */
     private boolean isFellowWinning() {
         return tempWinningPlayer.getRole().equals(PlayerRole.CALLER) && tempWinningCard.getSeme().equals(briscola);
     }

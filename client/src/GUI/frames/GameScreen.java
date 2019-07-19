@@ -17,7 +17,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
-
+/**
+ * Finestra di gioco principale
+ * @author Team A19
+ */
 
 public class GameScreen extends JFrame implements ActionListener {
 
@@ -228,7 +231,7 @@ public class GameScreen extends JFrame implements ActionListener {
 
         exitButton = new JButton("EXIT Game");
         exitButton.setBackground(Color.orange);
-        exitButton.setFont(logPanel.getFont());
+        exitButton.setFont(MyFonts.COPPERPLATE_GOTHIC_BOLD);
         exitButton.setPreferredSize(new Dimension(MAX_WIDTH/6,50));
         exitButton.setBorder(new NewGameScreen.RoundedBorder(10));
         exitButton.addActionListener(this);
@@ -260,6 +263,10 @@ public class GameScreen extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * aggiunge una stringa al log panel
+     * @param s evento da visualizzare
+     */
     public void log(String s) {
         logPanel.update(s);
     }
@@ -310,13 +317,20 @@ public class GameScreen extends JFrame implements ActionListener {
         //JOptionPane.showMessageDialog(this,s,"BettingMove", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Aggiorna le carte nel tavolo
+     * @param card carta da aggiungere
+     */
     public void updateTableCards(Card card) {
             tableCards.update(card);
             revalidate();
             repaint();
     }
 
-
+    /**
+     * Aggiorna il pannello carte giocatore se è un giocatore reale
+     * @param player giocatore di turno
+     */
     public void updatePlayerCards(Player player) {
         cardsContainer.update(player.getHand(), player instanceof ControlledPlayer);
 
@@ -377,6 +391,10 @@ public class GameScreen extends JFrame implements ActionListener {
         return imageString;
     }
 
+    /**
+     * Aggiunge nomi alle icone
+     * @param players giocatori della partita
+     */
     public void addNameOnIcon(ArrayList<Player> players) {
         if(gameType.equals(GameType.SIMULATED) || gameType.equals(GameType.CONTROLLED)) {
             int i = 0;
@@ -400,6 +418,11 @@ public class GameScreen extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Puntatore giocatore di turno
+     * @param playerId giocatore di turno
+     * @param visibility cambia visibilità
+     */
     public void showYourTurn(String playerId, boolean visibility) {
         for (TableIconPanel pane:iconPanels) {
             if(pane.getPlayerName().getText().equals(playerId)) {
@@ -488,6 +511,11 @@ public class GameScreen extends JFrame implements ActionListener {
         this.check = check;
     }
 
+    /**
+     * Mostra carta chiamata come compagno
+     * @param card carta chiamata
+     * @param player giocatore chiamante
+     */
     public void showBriscola(Card card, String player) {
         playerCaller.setText(player + " called:");
         CardPanel cardPanel = new CardPanel(card.getCardImage());

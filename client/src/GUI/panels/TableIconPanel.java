@@ -10,6 +10,10 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * pannello per icona giocatore
+ * @author Team A19
+ */
 public class TableIconPanel extends JPanel {
     private JLabel playerName;
     private JLabel turnPointer;

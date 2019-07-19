@@ -13,7 +13,10 @@ import game_management.players.ai.AIPlayerRandom;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-
+/**
+ * Controlla la partita locale
+ * @author Team A19
+ */
 public class LocalGame {
     private ArrayList<Player> players;
     private ArrayList<Player> teamCaller;
@@ -36,6 +39,9 @@ public class LocalGame {
         isMultiplayer = false;
     }
 
+    /**
+     * resetta le variabili d'istanza
+     */
     private void resetGameEnvironment() {
         higherBet = 60;
         startingPlayer = 0;
@@ -55,6 +61,9 @@ public class LocalGame {
         this.screen.setTurnDone(false);
     }
 
+    /**
+     * controlla il flusso di gioco
+     */
     private void startGame() {
         bettingTurn();
         chooseFellow();
@@ -62,6 +71,9 @@ public class LocalGame {
         makeScoreBoard();
     }
 
+    /**
+     * gestisce fase di scommessa
+     */
     private void bettingTurn() {
         screen.enableCards(false);
         while (bettingPlayers.size()!=1) {
@@ -141,6 +153,9 @@ public class LocalGame {
         }
     }
 
+    /**
+     * gestisce scelta compagno
+     */
     private void chooseFellow() {
         gameOrder(players,startingPlayer);
         ChoseFellowScreen screen1 = new ChoseFellowScreen(players.get(0),lock);
@@ -207,6 +222,9 @@ public class LocalGame {
         return s.toString();
     }
 
+    /**
+     * gestisce fase di gioco
+     */
     private void playPhase() {
         screen.setActionListener();
         screen.addNameOnIcon(players);
@@ -288,9 +306,7 @@ public class LocalGame {
                     e.printStackTrace();
                 }
             }
-            screen.setVisible(false);
-            goToMenuScreen();
-            startGame();
+            System.exit(0);
         }
 
     }
@@ -320,6 +336,10 @@ public class LocalGame {
         }
     }
 
+    /**
+     * aggiorna la schermata in base al giocatore di turno
+     * @param p giocatore di turno
+     */
     private void switchScreen(Player p) {
         if (p.getOrder() != 0 || !isFirst) {
             screen.updatePlayerCards(p);
@@ -327,6 +347,9 @@ public class LocalGame {
         screen.setLabelText(p);
     }
 
+    /**
+     * genera i giocatori secondo il tipo di gioco scelto dall'utente
+     */
     private void generatePlayers() {
         switch (gameType) {
             case CONTROLLED:
@@ -377,6 +400,10 @@ public class LocalGame {
 
     }
 
+    /**
+     * crea le squadre dopo la scelta del compagno
+     *
+     */
     private void createTeams() {
         this.teamCaller = new ArrayList<>();
         this.teamPopolo = new ArrayList<>();
@@ -395,6 +422,7 @@ public class LocalGame {
             }
         }
     }
+
 
     private void distributeCard() {
         for (int j = 0; j<8; j++) {

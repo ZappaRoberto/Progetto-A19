@@ -4,7 +4,11 @@ package card_management;
 import game_management.players.PlayerRole;
 
 import java.awt.*;
-
+/**
+ * Oggetto base, può essere riutilizzato in altri giochi di carte con piccole variazioni su compareTo(), pointsCalculator() e Enum Valore
+ * @see Valore
+ * @author Team A19
+ */
 public class Card implements Comparable<Card> {
     private Semi seme;
     private int valore;
@@ -14,6 +18,11 @@ public class Card implements Comparable<Card> {
     private PlayerRole owner;
     private String cardId;
 
+    /**
+     *
+     * @param seme seme della carta
+     * @param valore numerico
+     */
     public Card(Semi seme, int valore) {
         this.seme = seme;
         this.valore = valore;
@@ -21,9 +30,13 @@ public class Card implements Comparable<Card> {
         createId();
     }
 
+    /**
+     * costruttore tramite CardId
+     * @param cardId ricevuto come messaggio da server
+     */
     public Card(String cardId) {
         this.cardId = cardId;
-        this.valore = Integer.parseInt(cardId.replaceAll("[\\D]", ""));//(cardId.charAt(cardId.length()-1));
+        this.valore = Integer.parseInt(cardId.replaceAll("[\\D]", ""));
         for (Semi s:Semi.values()) {
             if(cardId.contains(s.toString())) {
                 this.seme = s;
@@ -121,7 +134,7 @@ public class Card implements Comparable<Card> {
         return owner;
     }
 
-    public void setOwner(PlayerRole owner) {
+     void setOwner(PlayerRole owner) {
         this.owner = owner;
     }
 

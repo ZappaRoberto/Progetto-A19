@@ -14,7 +14,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-
+/**
+ * Controlla tutta la logica del gioco
+ * @author Team A19
+ */
 public class Client {
     private ArrayList<String> messagesQue;
     private final  Object screenLock = new Object();
@@ -39,14 +42,18 @@ public class Client {
     public Client() {
         resetEnvironment();
     }
-
+    /**
+     * Apre il menu e in base a input crea partite locale o avvia comunicazione client-server
+     */
     public void startGame() {
         game.goToMenuScreen();
         if (game.isMultiplayer()) {
             runMultiplayerGame();
         }
     }
-
+    /**
+     * avvia partita online
+     */
     private void runMultiplayerGame() {
             try {
                 setup();
@@ -61,7 +68,12 @@ public class Client {
                 }
             }
     }
-
+    /**
+     * fase di gioco
+     *
+     * @throws InterruptedException lanciata se interrotta comunicazione con server
+     * @throws IOException
+     */
     private void play() throws InterruptedException, IOException {
         while (!isGameEnded) {
             synchronized (remoteLock) {
@@ -83,7 +95,12 @@ public class Client {
             gameStatus = GameStatus.WAIT;
         }
     }
-
+    /**
+     * fase di scelta compagno
+     *
+     * @throws InterruptedException lanciata se interrotta comunicazione con server
+     * @throws IOException
+     */
     private void chooseFellow() throws InterruptedException, IOException {
         synchronized (remoteLock) {
             while (gameStatus.equals(GameStatus.WAIT)) {
@@ -110,7 +127,12 @@ public class Client {
 
         screen.repaint();
     }
-
+    /**
+     * fase scommessa
+     *
+     * @throws InterruptedException lanciata se interrotta comunicazione con server
+     * @throws IOException
+     */
     private void bet() throws InterruptedException, IOException {
         while (!isBettingEnded) {
             synchronized (remoteLock) {
@@ -140,7 +162,14 @@ public class Client {
             }
         }
     }
-
+    /**
+     * Inizializzazione partita online
+     *
+     * @see ListenForMessages
+     * @see HandleMessages
+     * @throws IOException
+     * @throws InterruptedException lanciata se interrotta comunicazione con server
+     */
     private void setup() throws IOException, InterruptedException {
         loginScreen = new UserLoginScreen(screenLock);
         loginScreen.getFrame().setVisible(true);
@@ -180,7 +209,9 @@ public class Client {
         screen.setTurnDone(false);
         isBettingEnded = false;
     }
-
+    /**
+     * resetta partita se connessione interrotta
+     */
     private void resetGame() {
         System.out.println("Connection with Server lost, Game Restarting");
         loginScreen.dispose();
@@ -194,7 +225,9 @@ public class Client {
         resetEnvironment();
         startGame();
     }
-
+    /**
+     * resetta variabili d'istanza
+     */
     private void resetEnvironment() {
         messagesQue = new ArrayList<>();
         opponentsNames = new ArrayList<>();
@@ -206,7 +239,9 @@ public class Client {
         deck = new Deck();
         gameStatus = GameStatus.WAIT;
     }
-
+    /**
+     * Event listener che riceve messaggi dal server e li aggiunge a una lista
+     */
     private class ListenForMessages implements Runnable {
         private volatile boolean exit;
         private boolean isRunning = false;
@@ -233,7 +268,11 @@ public class Client {
             exit = true;
         }
     }
-
+    /**
+     * Observer che elabora i messaggi nella lista e sblocca i threads interessati
+     *
+     * @see ListenForMessages
+     */
     private class HandleMessages implements Runnable {
         private volatile boolean exit;
         private boolean isRunning = false;
@@ -378,6 +417,12 @@ public class Client {
     }
 
 
+    /**
+     * converte i messaggi in oggetti carte
+     *
+     * @param message stringa con id carta
+     * @return oggetto carta con immagine associata
+     */
     private Card convertCard(String message) {
         Card card = new Card(message);
         for (Card c:deck.getDeck()) {
@@ -395,7 +440,11 @@ public class Client {
             Thread.sleep(100);
         }
 
-
+    /**
+     * Apre connessione con server
+     * @param ip ip del server
+     * @throws IOException
+     */
     private void createSocket(String ip) throws IOException {
         ois = null;
         int port = 9876;
@@ -404,7 +453,11 @@ public class Client {
         ois = new ObjectInputStream(socket.getInputStream());
         System.out.println("Sending request to Socket Server");
     }
-
+    /**
+     * Invia messaggi al server
+     * @param message messaggio da inviare
+     * @throws IOException
+     */
     private void sendMessage(String message) throws IOException {
         System.out.println("Sending request to Socket Server");
         System.out.println(message);

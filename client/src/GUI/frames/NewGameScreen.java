@@ -13,7 +13,10 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-
+/**
+ * Finestra del menù principale
+ * @author Team A19
+ */
 public class NewGameScreen implements ActionListener {
     JFrame frame = new JFrame();
     ImagePanel backgroundPanel;
@@ -33,7 +36,6 @@ public class NewGameScreen implements ActionListener {
         frame.setResizable(false);
         frame.setTitle("Briscola chiamata");
         frame.setSize(1000,1200);
-        frame.setResizable(true);
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 
         backgroundPanel = new ImagePanel(addIcon("resources/tableBackground.jpg"));
@@ -122,6 +124,10 @@ public class NewGameScreen implements ActionListener {
         return gameChosen;
     }
 
+    /**
+     * l'evento selezionato viene passato a runGame()
+     * @param e evento generato da mouse
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(startLocalGameButton)) {
@@ -154,6 +160,10 @@ public class NewGameScreen implements ActionListener {
         }
     }
 
+    /**
+     * il lock che al momento blocca il thread principale viene sbloccato e il gioco viene avviato
+     *
+     */
     private void runGame() {
         frame.setVisible(false);
         synchronized (lock) {

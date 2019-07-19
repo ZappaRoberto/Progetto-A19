@@ -9,13 +9,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
-
+/**
+ * Genera giocatori artificiali
+ * @author Team A19
+ */
 public abstract class AIPlayer extends Player implements AI{
 
-    protected Card tempWinningCard;
-    protected Player tempWinningPlayer;
+     Card tempWinningCard;
+     Player tempWinningPlayer;
     Semi briscola;
-    int[] cardsForSuit;
+    private int[] cardsForSuit;
     HashMap<Semi,Integer> cardsBySuit;
 
 
@@ -24,6 +27,9 @@ public abstract class AIPlayer extends Player implements AI{
         tempWinningCard = null;
     }
 
+    /**
+     * Divide le carte per seme
+     */
     public void setCardsForSuit() {
         this.cardsForSuit = this.hand.getCardsForSuit();
         this.cardsBySuit = new HashMap<>();
@@ -32,7 +38,10 @@ public abstract class AIPlayer extends Player implements AI{
         }
     }
 
-
+    /**
+     * Sceglie briscola e compagno
+     * @return carta scelta
+     */
     public Card chooseFellow() {
         Deck deck = new Deck();
         deck.getDeck().removeAll(this.hand.getCards());
@@ -53,6 +62,11 @@ public abstract class AIPlayer extends Player implements AI{
         cards.sort(Card::compareTo);
         return  cards.get(cards.size()-1);
     }
+
+    /**
+     * lancia carte senza punti
+     * @return Carta senza punteggio
+     */
      Card giveLiscio() {
         Card card = null;
         for (Card c:this.hand.getCards()) {
@@ -66,6 +80,10 @@ public abstract class AIPlayer extends Player implements AI{
         return card;
     }
 
+    /**
+     * lancia carte di 10 o 11 punti(non briscola)
+     * @return Carta "Carico"
+     */
      Card giveCarico() {
         Card card = null;
         for (Card c:this.hand.getCards()) {
@@ -79,6 +97,10 @@ public abstract class AIPlayer extends Player implements AI{
         return card;
     }
 
+    /**
+     * gioca per vincere
+     * @return carta per vincere la mano
+     */
      Card getCardToWin() {
         Card d = null;
         if(tempWinningCard!=null) {
@@ -108,6 +130,10 @@ public abstract class AIPlayer extends Player implements AI{
         }
     }
 
+    /**
+     * gioca casuale
+     * @return carta casuale
+     */
     private Card giveRandomCard() {
         Random random = new Random();
         return this.hand.getCards().get(random.nextInt(this.hand.getCards().size()));

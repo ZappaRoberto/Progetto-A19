@@ -8,7 +8,10 @@ import game_management.players.Player;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-
+/**
+ * Finestra di gioco online
+ * @author Team A19
+ */
 public class OnlineGameScreen extends GameScreen {
     private boolean cardsEnabled;
 
@@ -20,6 +23,10 @@ public class OnlineGameScreen extends GameScreen {
         cardsEnabled = false;
     }
 
+    /**
+     * blocca/sblocca input utente
+     * @param cardsEnabled booleano controllato da messaggi del server
+     */
     public void setCardsEnabled(boolean cardsEnabled) {
         this.cardsEnabled = cardsEnabled;
     }

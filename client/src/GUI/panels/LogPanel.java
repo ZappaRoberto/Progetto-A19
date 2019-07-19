@@ -5,7 +5,10 @@ import finals.MyFonts;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * Pannello usato per loggare eventi
+ * @author Team A19
+ */
 public class LogPanel extends JPanel {
 
     private JTextArea logsField;
@@ -23,7 +26,7 @@ public class LogPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(logsField);
 
         vertical = scrollPane.getVerticalScrollBar();
-        vertical.setValue( vertical.getMaximum() );
+        vertical.setValue(vertical.getMaximum());
 
         this.setLayout(new BorderLayout());
         this.add(scrollPane, BorderLayout.CENTER);
@@ -31,11 +34,10 @@ public class LogPanel extends JPanel {
 
     }
 
-    @Override
-    public Font getFont() {
-        return font;
-    }
-
+    /**
+     * aggiorna il contenuto del log
+     * @param s ultimo log
+     */
     public void update(String s) {
         String text = logsField.getText() + "\n";
         logsField.setText(text + s);

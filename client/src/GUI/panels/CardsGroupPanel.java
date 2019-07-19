@@ -7,7 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
+/**
+ * Pannello usato per contenere CardPanels
+ * @see CardPanel
+ * @author Team A19
+ */
 public class CardsGroupPanel {
     private ArrayList<CardPanel> cardsSlot;
     private JPanel panel;

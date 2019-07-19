@@ -5,6 +5,10 @@ import card_management.Hand;
 
 import java.util.ArrayList;
 
+/**
+ * Classe base giocatori
+ * @author Team A19
+ *  */
 public abstract class Player implements Comparable<Player> {
       private int order;
      protected Hand hand;
@@ -30,6 +34,10 @@ public abstract class Player implements Comparable<Player> {
 
     }
 
+    /**
+     * aggiungi carte vinte in una mano e calcola punteggio
+     * @param cards carte vinte
+     */
     public void winHand(ArrayList<Card> cards) {
         this.wonCards.addAll(cards);
         for (Card c:cards) {
@@ -37,7 +45,7 @@ public abstract class Player implements Comparable<Player> {
         }
     }
 
-    public Card chooseCard(String image) {
+    private Card chooseCard(String image) {
         return this.hand.chooseCard(image);
     }
 

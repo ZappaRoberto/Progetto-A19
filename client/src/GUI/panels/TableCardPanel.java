@@ -7,7 +7,10 @@ import finals.MyColors;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-
+/**
+ * Pannello usato per contenere le carte nel tavolo
+ * @author Team A19
+ */
 public class TableCardPanel {
 
     private JPanel panel;
@@ -29,6 +32,10 @@ public class TableCardPanel {
         }
     }
 
+    /**
+     * aggiunge la carta, quando giocano tutti i giocatori si resetta
+     * @param card ultima carta giocata
+     */
     public void update(Card card) {
         if(cardsSlot.size()== 5) {
             clear();
@@ -48,7 +55,7 @@ public class TableCardPanel {
 
     private void addSlot(Card card) {
         ButtonCardImage cardSlot = new ButtonCardImage(card.getCardImage());
-        cardSlot.setBackground(Color.GREEN);
+        cardSlot.setBackground(MyColors.GREEN_TABLE);
         cardSlot.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         panel.add(cardSlot);
         cardsSlot.add(cardSlot);

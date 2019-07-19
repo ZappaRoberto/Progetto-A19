@@ -9,6 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+/**
+ * Finestra di scelta compagno
+ * @author Team A19
+ */
 
 public class ChoseFellowScreen implements ActionListener {
     private JFrame frame;
@@ -18,6 +22,11 @@ public class ChoseFellowScreen implements ActionListener {
     private boolean FellowChosen;
     private final Object lock;
 
+    /**
+     *
+     * @param player giocatore chiamante
+     * @param lock oggetto che controlla il flusso del thread principale
+     */
     public ChoseFellowScreen(Player player, Object lock) {
         frame = new JFrame("Scegli Briscola");
         frame.setSize(1000,800);
@@ -32,7 +41,7 @@ public class ChoseFellowScreen implements ActionListener {
 
         frame.add(background);
 
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         FellowChosen = false;
         this.lock = lock;
@@ -42,6 +51,9 @@ public class ChoseFellowScreen implements ActionListener {
         frame.setVisible(b);
     }
 
+    /**
+     * Aggiunge i pannelli carte dal deck copia a cui sono state rimosse le carte del giocatore chiamante
+     */
     private void fillCards() {
         deckCopy.getDeck().sort(Card::compareTo);
         for (Card c:deckCopy.getDeck()) {
@@ -61,6 +73,10 @@ public class ChoseFellowScreen implements ActionListener {
         }
     }
 
+    /**
+     * trova la carta selezionata
+     * @param e evento generato da carta selezionata
+     */
     private void findCard(ActionEvent e) {
         for (Card c:deckCopy.getDeck()) {
             if(c.getCardImage().toString().equals(e.getActionCommand())) {
@@ -70,6 +86,9 @@ public class ChoseFellowScreen implements ActionListener {
         }
     }
 
+    /**
+     * chiudi finestra
+     */
     public void endPhase() {
         //JOptionPane.showMessageDialog(frame.getContentPane(),c,"Card Chosen", JOptionPane.INFORMATION_MESSAGE);
         frame.dispose();

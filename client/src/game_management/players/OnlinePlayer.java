@@ -1,10 +1,12 @@
 package game_management.players;
 
-import card_management.Card;
 import card_management.Hand;
 
 import java.util.ArrayList;
-
+/**
+ * Genera giocatore online
+ * @author Team A19
+ */
 public class OnlinePlayer extends Player{
     private String playerName;
 

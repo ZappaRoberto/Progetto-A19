@@ -5,7 +5,10 @@ import GUI.frames.NewGameScreen;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-
+/**
+ * mazzo di carte
+ * @author Team A19
+ */
 public class Deck {
     private ArrayList<Card> deck;
 
@@ -14,11 +17,16 @@ public class Deck {
         createDeck();
     }
 
+    /**
+     * mescola il mazzo
+     */
     public void shuffle() {
         Collections.shuffle(deck);
     }
 
-
+    /**
+     * crea carte, assegna le immagini e aggiunge il valore(1=asso>10=re)
+     */
     private  void createDeck() {
         int factor = 0;
         for(Semi s: Semi.values()) {

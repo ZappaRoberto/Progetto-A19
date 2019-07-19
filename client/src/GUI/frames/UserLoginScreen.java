@@ -6,7 +6,10 @@ import finals.MyFonts;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-
+/**
+ * Finestra di login/signUp
+ * @author Team A19
+ */
 public class UserLoginScreen extends NewGameScreen {
 
     private JButton btnLogin;
