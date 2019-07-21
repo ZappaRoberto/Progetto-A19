@@ -1,10 +1,14 @@
-/* @author Gruppo A19
-    MultiThreaded server per gestire gameRoom multiple fino a 100 giocatori in contemporanea
- */
+
 import server.MultiServer;
 
 import java.io.IOException;
-
+/**
+ MultiThreaded server per gestire gameRoom multiple fino a 100 giocatori in contemporanea
+ <p>
+ Punto di Avvio del server
+ </p>
+ @author Ludovico Viola
+ */
 public class ServerMain {
 
 

@@ -4,7 +4,10 @@ import game_management.Player;
 
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-
+/**
+ * Identica per Client e Server
+ * @author Ludovico Viola
+ */
 public class User {
     private String name;
     private Socket socket;

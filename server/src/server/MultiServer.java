@@ -8,7 +8,10 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-
+/**
+ * Server MultiThreaded
+ * @author Ludovico Viola
+ */
 public class MultiServer {
     private boolean exit = false;
         private ServerSocket serverSocket;
@@ -17,8 +20,11 @@ public class MultiServer {
     private final Object lockRoomHandler = new Object();
     private ArrayList<GameRoom> rooms = new ArrayList<>();
 
-    //create one thread for each client connected
-    public void start(int port) throws IOException {
+    /**
+     * crea un thread per ogni client connesso mentre rimane in ascolto
+     * @param port porta su cui serverSocket si mette in ascolto
+     * @throws IOException
+     */    public void start(int port) throws IOException {
             serverSocket = new ServerSocket(port);
             RoomsHandler roomsHandler = new RoomsHandler(lockRoomHandler);
             roomsHandler.start();
@@ -28,14 +34,17 @@ public class MultiServer {
             }
         }
 
-    //close the ServerSocket object
+    /**
+     * close the ServerSocket object
+     * @throws IOException
+     */
         public void stop() throws IOException {
             exit =  true;
             serverSocket.close();
         }
-
-    /* Thread che gestisce l'interazione con il singolo client */
-        private  class ClientHandler extends Thread {
+     /**
+     *Thread che gestisce l'interazione con il singolo client
+     */       private  class ClientHandler extends Thread {
             private Socket clientSocket;
             private boolean exit = false;
             private User user;
@@ -133,8 +142,9 @@ public class MultiServer {
                 exit = true;
             }
         }
-    /* Thread che gestisce la creazione di nuove stanze  */
-        private class RoomsHandler extends Thread {
+    /**
+     *Thread che gestisce la creazione di nuove stanze
+     */        private class RoomsHandler extends Thread {
             private final Object lock1;
             private boolean exit = false;
             public RoomsHandler(Object lock1) {

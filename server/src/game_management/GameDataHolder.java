@@ -6,7 +6,10 @@ import card_management.Deck;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/* Hold data for a single multiplayer game */
+/**
+ * Contiene i dati della singola partita online
+ * @author Ludovico Viola
+ */
 public class GameDataHolder {
     public ArrayList<Player> players;
     public ArrayList<Player> teamCaller;

@@ -10,7 +10,10 @@ import game_management.Player;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
+/**
+ * Una volta raggiunti i 5 giocatori viene avviato un thread separato per gestire la partita
+ * @author Ludovico Viola
+ */
 public class GameRoom {
     private boolean isReady;
     private ArrayList<User> users;
@@ -34,7 +37,9 @@ public class GameRoom {
         this.lock = lock;
         gameEndedCounter=0;
     }
-
+    /**
+     * Thread partita avviato
+     */
      void startGame() {
         System.out.println(users);
         new MultiplayerGameHandler().run();
@@ -97,8 +102,9 @@ public class GameRoom {
      void setGameEndedCounter(int gameEndedCounter) {
         this.gameEndedCounter = gameEndedCounter;
     }
-    /* Thread che gestisce la singola partita nella room */
-    private class MultiplayerGameHandler extends Thread {
+    /**
+     *Thread che gestisce la singola partita nella room
+     */    private class MultiplayerGameHandler extends Thread {
         private Seme briscola;
         public void run() {
             try {
@@ -110,7 +116,10 @@ public class GameRoom {
                 e.printStackTrace();
             }
         }
-
+        /**
+         * fase scelta compagno
+         * @throws IOException
+         */
         private void chooseFellow() throws IOException {
             sendMessage(Message.NO_BET);
             for (User u: users) {
@@ -138,7 +147,10 @@ public class GameRoom {
             sendMessage(s);
             sendMessage(Message.NO_BET);
         }
-
+        /**
+         * fase scommesse
+         * @throws IOException
+         */
         private void bettingTurn() throws IOException {
             while (game.bettingPlayers.size()!=1) {
                 for (Player p : game.bettingPlayers) {
@@ -193,7 +205,10 @@ public class GameRoom {
             GameDataHolder.gameOrder(game.players,game.startingPlayer);
 
         }
-
+        /**
+         * fase di gioco
+         * @throws IOException
+         */
         private void playPhase() throws IOException {
 
             int hands = 0;
@@ -250,7 +265,9 @@ public class GameRoom {
         }
 
 
-
+        /**
+         * genera tempi morti
+         */
         private void waitTime() {
             try {
                 Thread.sleep(50);
@@ -259,7 +276,10 @@ public class GameRoom {
             }
         }
 
-
+        /**
+         * inserisce i dati dei giocatori nel data Holder e inizializza la partita
+         * @throws IOException
+         */
         private void setupNewGame() throws IOException {
             game = new GameDataHolder();
             fellowCard = null;
@@ -283,7 +303,12 @@ public class GameRoom {
                 }
             }
         }
-
+        /**
+         * Invia messaggi al giocatore singolo
+         * @param user giocatore interessato
+         * @param message messaggio
+         * @throws IOException
+         */
         private void sendMessage(User user, String message) throws IOException {
             if(user.getSocket().isConnected()) {
                 waitTime();
@@ -292,6 +317,11 @@ public class GameRoom {
                 //oos.close();
             }
         }
+        /**
+         * Invia messaggi a tutti igiocatori
+         * @param message messaggio
+         * @throws IOException
+         */
         private void sendMessage(String message) throws IOException {
             for (User u:users) {
                 waitTime();
